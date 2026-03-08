@@ -1,0 +1,12 @@
+/.tools/*
+!/.tools/README.md
+/.tmp/
+/vendor/
+/coverage/
+/.phpunit.result.cache
+/.phpunit.cache/
+/.claude/settings.local.json
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db

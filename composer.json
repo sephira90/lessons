@@ -1,0 +1,29 @@
+{
+  "name": "lessons/php-framework-lab",
+  "description": "Learning repository for rebuilding engineering thinking through a custom PHP framework.",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "php": "^8.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lessons\\Framework\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lessons\\Framework\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "@php tests/run.php",
+    "type-explorer": "@php bin/type-explorer.php",
+    "float-explorer": "@php bin/float-explorer.php"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
