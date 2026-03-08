@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(C:/OSPanel/modules/PHP-8.4/composer.bat --version)",
+      "Read(//c/OSPanel/modules/PHP-8.4/**)",
+      "Bash(C:/OSPanel/modules/PHP-8.4/php.exe -d output_buffering=0 \"$COMPOSER_HOME/composer.phar\" --version)",
+      "Bash(echo \"COMPOSER_HOME=$COMPOSER_HOME\")",
+      "Read(//c/OSPanel/home/lessons.ru/lessons/$APPDATA/Composer/**)",
+      "Read(//c/OSPanel/**)",
+      "Read(//c/OSPanel/home/lessons.ru/lessons/**)",
+      "Read(//c/Users/OMEN/.claude/projects/**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\OMEN\\.claude\\projects\\c--OSPanel-home-lessons-ru-lessons"
+    ]
+  }
+}
