@@ -89,6 +89,47 @@ The purpose of the slowdown protocol is to make the plan anti-fragile. Slowing d
 ### Progress Metric
 Not "feels understood", but "can reproduce, explain, defend, implement, and review" — verified through spaced retrieval, not through in-session confidence.
 
+### Learning Validation Stack
+Every important topic should move through five loops, not one:
+- **Acquisition:** first contact with the idea. Explanation, examples, initial scaffolding.
+- **Reconstruction:** explain the model from memory with the chat closed.
+- **Transfer:** solve a related but new task without step-by-step AI guidance.
+- **Calibration:** compare your model against independent checks: tests, official docs, real runtime behavior, review, interview-style questioning.
+- **Capitalization:** convert learning into engineering or market value in a way appropriate to the current phase.
+
+A loop is not complete if only the first stage succeeded. The dangerous failure mode is "intellectual fluency without autonomous transfer."
+
+### Weekly Review Protocol
+At the end of each week, complete one short review in `artifacts/reviews/` using the project template. The review is not reflective journaling; it is a control instrument.
+
+Required outputs each week:
+- what topics were studied;
+- what was reconstructed without notes;
+- what was transferred to a new task without AI;
+- what was calibrated against tests, docs, runtime, or external critique;
+- what became more valuable in real engineering terms.
+
+Core weekly metrics:
+
+| Metric | Question | Failure signal |
+|---|---|---|
+| Reconstruction Score | What can I explain from memory without reopening chat or notes? | Need to re-read before explaining |
+| No-AI Transfer Score | What similar task did I solve independently? | Only works when guided step by step |
+| Calibration Score | What independent check corrected or confirmed my model? | No external correction path exists |
+| Delivery Score | What working code or artifact did I finish this week? | Week was "intellectually rich" but produced no usable result |
+| Market Translation Score | Can I explain this topic in framework, interview, or real backend language? | Understanding exists only inside the local project dialect |
+| AI Dependency Risk | At what step did AI become a crutch instead of a critic? | AI used before own framing, own attempt, or own explanation |
+
+### Phase-Based Capitalization Ramp
+Market focus must be phased, not absolute:
+- **Phase 1-2:** 70% model stability and autonomous reasoning, 20% transfer, 10% market translation.
+- **Phase 3-4:** 55% engineering design and transfer, 25% calibration, 20% market translation.
+- **Phase 5-7:** 40% framework quality, 30% calibration and external comparison, 30% market capitalization through demos, explanations, and production-like reasoning.
+
+This prevents two bad extremes:
+- optimizing too early for "money language" without a stable core model;
+- optimizing forever for intellectual purity without ever producing market value.
+
 ## Cognitive Development Protocol
 
 ### Core Thinking Operations
@@ -126,6 +167,8 @@ At the end of every unit, answer honestly:
 3. Can I explain why this works, not just that it works? (depth of understanding)
 4. Can I identify where this would break? (failure mode awareness)
 5. Can I compare this with an alternative and articulate the trade-off? (judgment)
+6. Can I solve a similar problem without AI? (transfer)
+7. Can I describe this in real framework, backend, or interview language? (capitalization readiness)
 
 If any answer is "no" or "probably", the unit is not complete.
 
