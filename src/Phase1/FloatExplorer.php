@@ -27,7 +27,7 @@ final class FloatExplorer
     /**
      * @return list<FloatObservation>
      */
-    public function observations(): array
+    public function precisionObservations(): array
     {
         $sumTenTenths = $this->sumTenths(10);
 
@@ -95,6 +95,77 @@ final class FloatExplorer
         ];
     }
 
+    /**
+     * @return list<FloatObservation>
+     */
+    public function comparisonObservations(): array
+    {
+        return [
+            new FloatObservation(
+                'Float против целого нестрого',
+                '1.0 == 1',
+                1.0 == 1,
+                'При нестрогом сравнении `float` и `int` приводятся к сопоставимым числовым значениям, поэтому `1.0` и `1` считаются равными.'
+            ),
+            new FloatObservation(
+                'Float против целого строго',
+                '1.0 === 1',
+                1.0 === 1,
+                '`===` не только сравнивает значение, но и требует одинаковый тип. `float` и `int` здесь различаются.'
+            ),
+            new FloatObservation(
+                'Float против числовой строки нестрого',
+                "1.5 == '1.5'",
+                1.5 == '1.5',
+                'Числовая строка при нестрогом сравнении приводится к числу, поэтому `1.5` и `\'1.5\'` считаются равными.'
+            ),
+            new FloatObservation(
+                'Float против числовой строки строго',
+                "1.5 === '1.5'",
+                1.5 === '1.5',
+                'Строгое сравнение не приводит типы, поэтому `float` и `string` не могут совпасть даже при одинаково выглядящей записи.'
+            ),
+            new FloatObservation(
+                'Ноль float против false',
+                '0.0 == false',
+                0.0 == false,
+                'При нестрогом сравнении `0.0` и `false` попадают в опасную зону type juggling: нулевое числовое значение считается равным логической лжи.'
+            ),
+            new FloatObservation(
+                'Единица float против true',
+                '1.0 == true',
+                1.0 == true,
+                'При нестрогом сравнении `1.0` считается истинным значением, поэтому совпадает с `true`.'
+            ),
+            new FloatObservation(
+                'Ноль float против null',
+                '0.0 == null',
+                0.0 == null,
+                '`null` при нестрогом сравнении с нулевым числом даёт один из самых опасных контринтуитивных кейсов: `0.0` считается равным `null`.'
+            ),
+            new FloatObservation(
+                'Единица float против null',
+                '1.0 == null',
+                1.0 == null,
+                'Здесь нестрогое сравнение уже не даёт равенства: не каждый `float` совпадает с `null`, а только значения, попадающие в особые правила приведения.'
+            ),
+            new FloatObservation(
+                'Float против нечисловой строки',
+                "1.5 == 'foo'",
+                1.5 == 'foo',
+                'Нечисловая строка не превращается в подходящее числовое значение для совпадения с `1.5`, поэтому сравнение даёт `false`.'
+            ),
+        ];
+    }
+
+    /**
+     * @return list<FloatObservation>
+     */
+    public function observations(): array
+    {
+        return [...$this->precisionObservations(), ...$this->comparisonObservations()];
+    }
+
     public function almostEqual(float $left, float $right, float $epsilon = 1e-12): bool
     {
         return abs($left - $right) < $epsilon;
@@ -118,12 +189,24 @@ final class FloatExplorer
         $lines[] = 'PHP_FLOAT_MAX = ' . $this->describe(PHP_FLOAT_MAX);
         $lines[] = 'PHP_FLOAT_MIN = ' . $this->describe(PHP_FLOAT_MIN);
         $lines[] = '';
-        $lines[] = 'Наблюдения';
+        $lines[] = 'Наблюдения о точности';
+        $index = 1;
 
-        foreach ($this->observations() as $index => $observation) {
-            $lines[] = sprintf('%d. %s', $index + 1, $observation->expression);
+        foreach ($this->precisionObservations() as $observation) {
+            $lines[] = sprintf('%d. %s', $index, $observation->expression);
             $lines[] = '   факт: ' . $this->describe($observation->actual);
             $lines[] = '   объяснение: ' . $observation->explanation;
+            $index++;
+        }
+
+        $lines[] = '';
+        $lines[] = 'Сравнения float с другими типами';
+
+        foreach ($this->comparisonObservations() as $observation) {
+            $lines[] = sprintf('%d. %s', $index, $observation->expression);
+            $lines[] = '   факт: ' . $this->describe($observation->actual);
+            $lines[] = '   объяснение: ' . $observation->explanation;
+            $index++;
         }
 
         return implode(PHP_EOL, $lines) . PHP_EOL;
